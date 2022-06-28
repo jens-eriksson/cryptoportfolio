@@ -102,3 +102,12 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Angular
+.angular/
+
+# Build output
+www/
+
+# MAC folders
+.DS_Store
