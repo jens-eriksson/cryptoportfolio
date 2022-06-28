@@ -1,0 +1,35 @@
+<ion-grid>
+  <ion-row class="volume-row">
+    <ion-col *ngFor="let day of data.days">
+        <div  class="volume">
+          {{ day.feesSEK | number:'1.0-0':'sv' }}
+        </div>
+    </ion-col>
+  </ion-row>
+  <ion-row class="day-row">
+    <ion-col *ngFor="let day of data.days">
+        <span  class="day">
+          {{ day.date }}
+        </span>
+    </ion-col>
+  </ion-row>
+  <ion-row class="day-row">
+    <ion-col *ngFor="let day of data.days">
+        <span  class="day">
+          {{ day.weekday }}
+        </span>
+    </ion-col>
+  </ion-row>
+  <ion-row class="summary-row">
+    <ion-col>
+      <ion-chip color="primary">
+        <ion-label>sum: {{ data.sumFeesSEK | number:'1.0-0':'sv' }}</ion-label>
+      </ion-chip>
+    </ion-col>
+    <ion-col>
+      <ion-chip color="primary">
+        <ion-label>avg: {{ data.avgFeesSEK | number:'1.0-0':'sv' }}</ion-label>
+      </ion-chip>
+    </ion-col>
+  </ion-row>
+</ion-grid>

@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" (click)="save()" defaultHref="/tabs/portfolios"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="holding">{{ holding.symbol.toUpperCase() }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button text="" icon="../../../assets/delete.svg" color="danger"  defaultHref="/tabs/portfolios" (click)="deleteAsset()" margin-end class="font-small">
+      </ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="holding">
+  <ion-item>
+    <ion-label>Amount</ion-label>
+    <ion-input slot="end" text-right type="number" [(ngModel)]="holding.amount"></ion-input>
+  </ion-item>
+  <ion-item-group  *ngIf="showAdvanced">
+    <ion-item-divider>
+      <ion-label class="font-small">ADVANCED</ion-label>
+    </ion-item-divider>
+  <ion-item>
+    <ion-label>Convert</ion-label>
+    <ion-toggle slot="end" [(ngModel)]="holding.isCalculated"></ion-toggle>
+  </ion-item>
+  <ion-item *ngIf="showAdvanced && holding.isCalculated">
+    <ion-label>Base Asset</ion-label>
+    <ion-select okText="Ok" cancelText="Cancel" [(ngModel)]="holding.baseAsset" interface="popover" clear-input="true" placeholder="Ticker...">
+      <ion-select-option *ngFor="let a of assets" [value]="a.id">{{ a.symbol.toUpperCase() }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item *ngIf="showAdvanced && holding.isCalculated">
+    <ion-label>Convertion Rate</ion-label>
+    <ion-input slot="end" text-right type="text" [(ngModel)]="holding.convertionRate"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="showAdvanced">
+    <ion-label>Check Amount</ion-label>
+    <ion-toggle slot="end" [(ngModel)]="holding.checkAmount"></ion-toggle>
+  </ion-item>
+  <ion-item *ngIf="showAdvanced && holding.checkAmount">
+    <ion-label>Amount URL</ion-label>
+    <ion-input slot="end" text-right type="text" [(ngModel)]="holding.amountUrl"></ion-input>
+  </ion-item>  
+</ion-item-group>
+<ion-toolbar class="ion-text-center">
+  <ion-text *ngIf="!showAdvanced" color="primary" (click)="showAdvanced = !showAdvanced">Show advanced</ion-text>
+  <ion-text *ngIf="showAdvanced" color="primary" (click)="showAdvanced = !showAdvanced">Hide advanced</ion-text>
+</ion-toolbar>
+</ion-content>
+<ion-footer no-border>
+  <ion-toolbar>
+      <ion-label color="medium" margin-start>Portfolio</ion-label>
+      <ion-label *ngIf="portfolio" slot="end" color="medium" text-right margin-end>{{ portfolio.name }}</ion-label>
+  </ion-toolbar>
+</ion-footer>

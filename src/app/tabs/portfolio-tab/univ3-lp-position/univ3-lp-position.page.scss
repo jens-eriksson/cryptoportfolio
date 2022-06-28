@@ -1,0 +1,149 @@
+ion-list {
+  width: 100%;
+}
+
+ion-slides {
+  height: 100%;
+}
+.swiper-slide {
+  display: block;
+}
+
+.label {
+  position: absolute;
+  left: 5;
+  width: 100px;
+  white-space: nowrap;
+  font-size: small;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.price {
+  position: absolute;
+  left: 60px;
+  width: 65px;
+  white-space: nowrap;
+  text-align: right;
+  font-size: small;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.change {
+  position: absolute;
+  left: 125px;
+  width: 50px;
+  white-space: nowrap;
+  text-align: right;
+  font-size: small;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.amount {
+  position: absolute;
+  left: 165px;
+  width: 80px;
+  white-space: nowrap;
+  text-align: right;
+  font-size: small;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.usd {
+  position: absolute;
+  right: 175px;
+  width: 85px;
+  white-space: nowrap;
+  text-align: right;
+  font-size: small;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.sek {
+  position: absolute;
+  right: 90px;
+  width: 85px;
+  white-space: nowrap;
+  text-align: right;
+  font-size: small;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.token0 {
+  position: absolute;
+  right: 85px;
+  width: 55px;
+  white-space: nowrap;
+  text-align: right;
+  font-size: small;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.token1 {
+  position: absolute;
+  right: 25px;
+  width: 55px;
+  white-space: nowrap;
+  text-align: right;
+  font-size: small;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.chip-badge {
+  margin-left: 10px;
+}
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.ml-10 {
+  margin-left: 10px;
+}
+.mr-10 {
+  margin-right: 10px;
+}
+
+ion-slide {
+  overflow-y: auto;
+}
+
+ion-item-divider {
+  background-color: white;
+  border: none;
+}
+
+ion-card {
+  min-width: 200px;
+  margin: 0px;
+}
+
+ion-card-header {
+    text-align: center;
+    padding-bottom: 0px;
+}
+
+ion-card-content {
+  padding: 25px;
+  padding-top: 15px;
+  text-align: center;
+}
+
+ion-chip {
+    ion-badge {
+        margin-left: 7px;
+    }
+}

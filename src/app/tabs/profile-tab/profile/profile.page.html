@@ -1,0 +1,12 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="user" padding>
+  <ion-item margin-bottom lines="full">
+    <ion-icon src="../assets/user.svg" margin-end></ion-icon>
+    <ion-label>{{ user.email }}</ion-label>
+  </ion-item>  
+  <ion-button expand="full" (click)="signOut()">Sign Out</ion-button>
+</ion-content>

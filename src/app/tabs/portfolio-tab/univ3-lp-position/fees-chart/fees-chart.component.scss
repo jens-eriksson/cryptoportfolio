@@ -1,0 +1,25 @@
+.day {
+    font-size: small;
+    white-space: nowrap;
+}
+.volume {
+    transform: rotate(-90deg);
+    white-space: nowrap;
+    margin-top: 25px;
+}
+
+.volume-row {
+    height: 80px;
+}
+
+.summary-row {
+    margin-top: 20px;
+}
+
+ion-grid {
+    height: 220px;
+}
+
+ion-col {
+    min-width: 41px;
+}

@@ -1,0 +1,30 @@
+<ion-grid>
+  <ion-row class="volume-row">
+    <ion-col *ngFor="let day of data.days">
+        <div  class="volume">
+          {{ day.ratio | percent:'1.2-2':'sv' }}
+        </div>
+    </ion-col>
+  </ion-row>
+  <ion-row class="day-row">
+    <ion-col *ngFor="let day of data.days">
+        <span  class="day">
+          {{ day.date }}
+        </span>
+    </ion-col>
+  </ion-row>
+  <ion-row class="day-row">
+    <ion-col *ngFor="let day of data.days">
+        <span  class="day">
+          {{ day.weekday }}
+        </span>
+    </ion-col>
+  </ion-row>
+  <ion-row class="summary-row">
+    <ion-col>
+      <ion-chip color="primary">
+        <ion-label>7d: {{ data.ratio7d | percent:'1.2-2':'sv' }}</ion-label>
+      </ion-chip>
+    </ion-col>
+  </ion-row>
+</ion-grid>

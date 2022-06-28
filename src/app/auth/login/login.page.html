@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Crypto Portfolio</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="login">
+    <ion-item lines="full">
+      <ion-input type="text" placeholder="Email..." [(ngModel)]="email"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-input type="password" placeholder="Password..." [(ngModel)]="password"></ion-input>
+    </ion-item>
+    <ion-button expand="full" margin-vertical (click)="login()">Sign In</ion-button>
+    <ion-textarea color="danger" text-center>
+      {{ message }}
+    </ion-textarea>
+  </div>
+</ion-content>

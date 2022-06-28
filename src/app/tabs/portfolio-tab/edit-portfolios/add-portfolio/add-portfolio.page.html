@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/tabs/portfolios/edit"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Portfolio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-input type="text" [(ngModel)]="name" clear-input="true" placeholder="Name..."></ion-input>
+  </ion-item>
+  <ion-button [disabled]="!name" margin expand="full" (click)="add()">Add</ion-button>
+</ion-content>

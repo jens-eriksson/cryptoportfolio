@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="editPortfolios()">
+        <ion-text>Edit</ion-text>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      {{ this.title }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-slides #slides pager="true" [options]="slideOpts" (ionSlideDidChange)="slideChanged($event)">
+    <ion-slide *ngFor="let portfolio of portfolios">
+      <ion-list>
+        <ion-item class="font-small">
+          <ion-label class="ticker"></ion-label>
+          <ion-label class="price">Price USD</ion-label>
+          <ion-label class="change" color="medium"></ion-label>
+          <ion-label class="amount">Amount</ion-label>
+          <ion-label class="usd">USD</ion-label>
+          <ion-label class="sek">SEK</ion-label>
+          <ion-label class="eth">ETH</ion-label>
+        </ion-item>
+        <ion-item button *ngFor="let holding of portfolio.holdings" (click)="editHolding(holding.id)" detail="true">
+          <ion-label class="ticker">{{ holding.symbol.toLocaleUpperCase() }}</ion-label>
+          <ion-label class="price">{{ holding.priceUSD  | number:'1.2-2':'sv' }}</ion-label>
+          <ion-label class="change" [ngClass]="{'green':holding.change24h > 0, 'red':holding.change24h < 0 }">
+            {{ holding.change24h | percent:'1.1-1':'sv' }}</ion-label>
+          <ion-label class="amount">{{ holding.amount | number:'1.2-2':'sv' }}</ion-label>
+          <ion-label class="usd">{{ holding.valueUSD | number:'1.0-0':'sv' }}</ion-label>
+          <ion-label class="sek">{{ holding.valueSEK | number:'1.0-0':'sv' }}</ion-label>
+          <ion-label class="eth">{{ holding.valueETH | number:'1.2-2':'sv' }}</ion-label>
+        </ion-item>
+        <ion-item button *ngFor="let position of lpPositions" (click)="editLpPosition(position.id)" detail="true">
+          <ion-label class="ticker">{{ position.name.toLocaleUpperCase() }}</ion-label>
+          <ion-label class="price-lp">{{ position.token1.priceUSD| number:'1.2-2':'sv' }}</ion-label>
+          <ion-label class="usd">{{ position.value.usd | number:'1.0-0':'sv' }}</ion-label>
+          <ion-label class="sek">{{ position.value.sek | number:'1.0-0':'sv' }}</ion-label>
+          <ion-label class="eth">{{ position.value.token1| number:'1.2-2':'sv' }}</ion-label>
+        </ion-item>
+        <ion-item class="font-small font-bold" lines="none">
+          <ion-label class="ticker"></ion-label>
+          <ion-label class="price"></ion-label>
+          <ion-label class="change"></ion-label>
+          <ion-label class="amount"></ion-label>
+          <ion-label class="usd">{{ portfolio.sumUSD | number:'1.0-0':'sv' }}</ion-label>
+          <ion-label class="sek">{{ portfolio.sumSEK | number:'1.0-0':'sv' }}</ion-label>
+          <ion-label class="eth">{{ portfolio.sumETH | number:'1.2-2':'sv' }}</ion-label>
+        </ion-item>
+      </ion-list>
+      <ion-textarea *ngIf="errorMessage" color="danger">
+        {{ errorMessage }}
+      </ion-textarea>
+    </ion-slide>
+  </ion-slides>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button size="small" (click)="addHolding()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+<ion-footer no-border>
+  <ion-toolbar>
+    <ion-label color="medium" slot="start" class="font-small ml-10">
+      {{ updated }}</ion-label>
+    <ion-label *ngIf="usdsek" color="medium" slot="end" class="font-small mr-10">USDSEK:
+      {{ usdsek.rate | number:'1.2-2':'sv'  }}</ion-label>
+  </ion-toolbar>
+</ion-footer>

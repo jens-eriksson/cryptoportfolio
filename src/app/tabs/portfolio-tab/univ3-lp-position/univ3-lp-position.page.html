@@ -1,0 +1,225 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/tabs/portfolios"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="position">{{ position.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-grid *ngIf="position" grid-padding="0">
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>Prices USD</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-chip color="primary">
+              <ion-label>{{ position.token0.symbol }}: {{ position.token0.priceUSD | number:'1.0-0':'sv' }}</ion-label>
+            </ion-chip>
+            <ion-chip color="primary">
+              <ion-label>{{ position.token1.symbol }}: {{ position.token1.priceUSD | number:'1.0-0':'sv' }}</ion-label>
+            </ion-chip>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>Valuation</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content style="padding: 0px;">
+            <ion-list *ngIf="position">
+              <ion-item class="font-small" lines="none">
+                <ion-label class="label"></ion-label>
+                <ion-label class="token1">{{ position.token1.symbol.toUpperCase() }}</ion-label>
+                <ion-label class="usd">USD</ion-label>
+                <ion-label class="sek">SEK</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label class="label">Principle</ion-label>
+                <ion-label class="token1">{{ position.principle.value.token1| number:'1.3-3':'sv' }}</ion-label>
+                <ion-label class="usd">{{ position.principle.value.usd | number:'1.0-0':'sv' }}</ion-label>
+                <ion-label class="sek">{{ position.principle.value.sek | number:'1.0-0':'sv' }}</ion-label>
+              </ion-item>
+              <ion-item *ngIf="position.liquidity.value">
+                <ion-label class="label">Liquidity</ion-label>
+                <ion-label class="token1">{{ position.liquidity.value.token1 | number:'1.3-3':'sv' }}</ion-label>
+                <ion-label class="usd">{{ position.liquidity.value.usd | number:'1.0-0':'sv' }}</ion-label>
+                <ion-label class="sek">{{ position.liquidity.value.sek | number:'1.0-0':'sv' }}</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label class="label bold">Profit market</ion-label>
+                <ion-label class="token1 bold" [ngClass]="{'red':position.profit.token1 < 0 }">{{ position.profit.token1 | number:'1.3-3':'sv' }}</ion-label>
+                <ion-label class="usd bold" [ngClass]="{'red':position.profit.usd < 0 }">{{ position.profit.usd | number:'1.0-0':'sv' }}</ion-label>
+                <ion-label class="sek bold" [ngClass]="{'red':position.profit.sek < 0 }">{{ position.profit.sek | number:'1.0-0':'sv' }}</ion-label>
+              </ion-item>
+              <ion-item-divider></ion-item-divider>
+              <ion-item *ngIf="position.balance.value" lines="none">
+                <ion-label class="label">Balance</ion-label>
+                <ion-label class="token1">{{ position.balance.value.token1 | number:'1.3-3':'sv' }}</ion-label>
+                <ion-label class="usd">{{ position.balance.value.usd | number:'1.0-0':'sv' }}</ion-label>
+                <ion-label class="sek">{{ position.balance.value.sek | number:'1.0-0':'sv' }}</ion-label>
+              </ion-item>
+              <ion-item *ngIf="position.liquidity.value">
+                <ion-label class="label">Liquidity</ion-label>
+                <ion-label class="token1">{{ position.liquidity.value.token1 | number:'1.3-3':'sv' }}</ion-label>
+                <ion-label class="usd">{{ position.liquidity.value.usd | number:'1.0-0':'sv' }}</ion-label>
+                <ion-label class="sek">{{ position.liquidity.value.sek | number:'1.0-0':'sv' }}</ion-label>
+              </ion-item>
+              <!--<ion-item *ngIf="position.unclaimedFees.value">
+                <ion-label class="label">Unclaimed fees</ion-label>
+                <ion-label class="token1">{{ position.unclaimedFees.value.token1 | number:'1.3-3':'sv' }}</ion-label>
+                <ion-label class="usd">{{ position.unclaimedFees.value.usd | number:'1.0-0':'sv' }}</ion-label>
+                <ion-label class="sek">{{ position.unclaimedFees.value.sek | number:'1.0-0':'sv' }}</ion-label>
+              </ion-item>-->
+              <ion-item *ngIf="position.value" lines="none">
+                <ion-label class="label bold">Current value</ion-label>
+                <ion-label class="token1 bold">{{ position.value.token1 | number:'1.3-3':'sv' }}</ion-label>
+                <ion-label class="usd bold">{{ position.value.usd | number:'1.0-0':'sv' }}</ion-label>
+                <ion-label class="sek bold">{{ position.value.sek | number:'1.0-0':'sv' }}</ion-label>
+              </ion-item>
+              <ion-item-divider></ion-item-divider>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>Principle</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-chip color="primary">
+              <ion-label>{{ position.token0.symbol }}: {{ position.principle.amount.token0 | number:'1.3-3':'sv' }}</ion-label>
+            </ion-chip>
+            <ion-chip color="primary">
+              <ion-label>{{ position.token1.symbol }}: {{ position.principle.amount.token1  | number:'1.3-3':'sv' }}</ion-label>
+            </ion-chip>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>Liquidity</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-chip color="primary">
+              <ion-label>{{ position.token0.symbol }}: {{ position.liquidity.amount.token0 | number:'1.2-2':'sv' }}</ion-label>
+              <ion-badge color="primary">{{ position.liquidity.ratio.token0 | percent:'1.0-0':'sv' }}</ion-badge>
+            </ion-chip>
+            <ion-chip color="primary">
+              <ion-label>{{ position.token1.symbol }}: {{ position.liquidity.amount.token1 | number:'1.2-2':'sv' }}</ion-label>
+              <ion-badge color="primary">{{ position.liquidity.ratio.token1 | percent:'1.0-0':'sv' }}</ion-badge>
+            </ion-chip>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>Price Range</ion-card-subtitle>
+            <ion-label *ngIf="!invertPrice">{{ position.token0.symbol + ' / ' + position.token1.symbol }}</ion-label>
+            <ion-label *ngIf="invertPrice">{{ position.token1.symbol + ' / ' + position.token0.symbol }}</ion-label>
+          </ion-card-header>
+          <ion-card-content>
+            <div *ngIf="!invertPrice">
+              <ion-chip color="primary" (click)="invertPrice = !invertPrice">
+                <ion-label>min: {{ position.token1.minPriceToken0 | number:'1.3-3':'sv' }}</ion-label>
+              </ion-chip>
+              <ion-chip color="success" (click)="invertPrice = !invertPrice">
+                <ion-label>{{ position.token1.priceToken0| number:'1.3-3':'sv' }}</ion-label>
+              </ion-chip>
+              <ion-chip color="primary" (click)="invertPrice = !invertPrice">
+                <ion-label>max: {{ position.token1.maxPriceToken0 | number:'1.3-3':'sv' }}</ion-label>
+              </ion-chip>
+            </div>
+            <div *ngIf="invertPrice">
+              <ion-chip color="primary" (click)="invertPrice = !invertPrice">
+                <ion-label>min: {{ position.token0.minPriceToken1 | number:'1.3-3':'sv' }}</ion-label>
+              </ion-chip>
+              <ion-chip color="success" (click)="invertPrice = !invertPrice">
+                <ion-label>{{ position.token0.priceToken1| number:'1.3-3':'sv' }}</ion-label>
+              </ion-chip>
+              <ion-chip color="primary" (click)="invertPrice = !invertPrice">
+                <ion-label>max: {{ position.token0.maxPriceToken1 | number:'1.3-3':'sv' }}</ion-label>
+              </ion-chip>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>Pool volume MUSD</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <app-volume-chart [data]="position.poolData"></app-volume-chart>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>Pool TVL MUSD</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <app-tvl-chart [data]="position.poolData"></app-tvl-chart>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>Volume / TVL ratio</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <app-ratio-chart [data]="position.poolData"></app-ratio-chart>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>Unclaimed fees (FEL)</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-chip color="success">
+              <ion-label>{{ position.unclaimedFees.value.usd| number:'1.0-0':'sv' }} USD</ion-label>
+            </ion-chip>
+            <br>
+            <ion-chip color="primary">
+              <ion-label>{{ position.token0.symbol }}: {{ position.unclaimedFees.amount.token0 | number:'1.3-3':'sv' }}</ion-label>
+            </ion-chip>
+            <ion-chip color="primary">
+              <ion-label>{{ position.token1.symbol }}: {{ position.unclaimedFees.amount.token1 | number:'1.3-3':'sv' }}</ion-label>
+            </ion-chip>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer no-border>
+</ion-footer>

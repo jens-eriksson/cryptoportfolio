@@ -1,0 +1,7 @@
+{
+  "name": "cryptoportfolio",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,61 @@
+.ticker {
+  position: absolute;
+  left: 5;
+  width: 40px;
+  white-space: nowrap;
+  font-size: small;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.price {
+  position: absolute;
+  left: 50px;
+  width: 60px;
+  white-space: nowrap;
+  text-align: right;
+  font-size: small;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.change {
+  position: absolute;
+  left: 120px;
+  width: 50px;
+  white-space: nowrap;
+  text-align: left;
+  font-size: small;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.usd {
+  position: absolute;
+  right: 110px;
+  width: 80px;
+  white-space: nowrap;
+  text-align: right;
+  font-size: small;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.sek {
+  position: absolute;
+  right: 25px;
+  width: 80px;
+  white-space: nowrap;
+  text-align: right;
+  font-size: small;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+ 
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
