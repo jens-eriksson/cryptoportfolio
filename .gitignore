@@ -111,3 +111,6 @@ www/
 
 # MAC folders
 .DS_Store
+
+# Firebase
+.firebase/
