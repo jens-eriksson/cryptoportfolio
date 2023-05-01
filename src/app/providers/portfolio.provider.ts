@@ -7,6 +7,7 @@ import { FirestoreProvider } from './firestore.provider';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ExchangeRate } from '../model/exchange-rate';
 import { Univ3LpPosition } from '../model/univ3-lp-position';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable()
 export class PortfolioProvider extends FirestoreProvider<Portfolio> {
@@ -51,7 +52,7 @@ export class PortfolioProvider extends FirestoreProvider<Portfolio> {
   private async updateAmounts(portfolio: Portfolio) {
     for (const holding of portfolio.holdings) {
       if (holding.checkAmount) {
-        const res = await this.http.get(holding.amountUrl).toPromise<any>();
+        const res = await lastValueFrom<any>(this.http.get(holding.amountUrl));
         holding.amount = res.result / 1000000000;
       }
     }

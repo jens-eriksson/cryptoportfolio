@@ -5,6 +5,7 @@ import { ExchangeRate } from './../model/exchange-rate';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FirestoreProvider } from './firestore.provider';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable()
 export class ExchangeRateProvider extends FirestoreProvider<ExchangeRate>  {
@@ -21,7 +22,7 @@ export class ExchangeRateProvider extends FirestoreProvider<ExchangeRate>  {
         const usdsek = await this.get('USDSEK');
         if (usdsek.timestamp.seconds + 3600 < seconds) {
             const url = 'https://free.currconv.com/api/v7/convert?apiKey=' + this.apiKey + '&q=USD_SEK&compact=ultra';
-            const res = await this.http.get(url).toPromise<any>();
+            const res = await lastValueFrom<any>(this.http.get(url));
             const rate: ExchangeRate = {
                 id: 'USDSEK',
                 rate: res.USD_SEK,
@@ -38,7 +39,7 @@ export class ExchangeRateProvider extends FirestoreProvider<ExchangeRate>  {
         const ethusd = await this.get('ETHUSD');
         if (!ethusd || ethusd.timestamp.seconds + 3600 < seconds) {
             const url = 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd';
-            const res = await this.http.get(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })}).toPromise();
+            const res = await lastValueFrom(this.http.get(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })}));
 
             const rate: ExchangeRate = {
                 id: 'ETHUSD',
