@@ -24,29 +24,28 @@ registerLocaleData(localeSv, 'sv');
 firebase.default.initializeApp(environment.firebase);
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot({navAnimation: null}),
-    AppRoutingModule,
-    HttpClientModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-      // Register the ServiceWorker as soon as the app is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })
-  ],
-  providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    PortfolioProvider,
-    ExchangeRateProvider,
-    AssetProvider,
-    Univ3LpPositionProvider,
-    AuthProvider,
-    AuthGuard
-  ],
-  bootstrap: [AppComponent]
+    declarations: [AppComponent],
+    imports: [
+        BrowserModule,
+        IonicModule.forRoot({ navAnimation: null }),
+        AppRoutingModule,
+        HttpClientModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: environment.production,
+            // Register the ServiceWorker as soon as the app is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:30000'
+        })
+    ],
+    providers: [
+        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+        PortfolioProvider,
+        ExchangeRateProvider,
+        AssetProvider,
+        Univ3LpPositionProvider,
+        AuthProvider,
+        AuthGuard
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}
