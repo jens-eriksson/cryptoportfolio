@@ -54,7 +54,7 @@ ion-slides {
 
 .amount {
   position: absolute;
-  left: 165px;
+  left: 160px;
   width: 80px;
   white-space: nowrap;
   text-align: right;
@@ -65,7 +65,7 @@ ion-slides {
 
 .usd {
   position: absolute;
-  right: 150px;
+  right: 92px;
   width: 80px;
   white-space: nowrap;
   text-align: right;
@@ -76,7 +76,7 @@ ion-slides {
 
 .sek {
   position: absolute;
-  right: 75px;
+  right: 22px;
   width: 80x;
   white-space: nowrap;
   text-align: right;
@@ -87,7 +87,7 @@ ion-slides {
 
 .eth {
   position: absolute;
-  right: 25px;
+  right: 160px;
   width: 55px;
   white-space: nowrap;
   text-align: right;
@@ -95,7 +95,7 @@ ion-slides {
   margin-top: auto;
   margin-bottom: auto;
 }
- 
+
 .green {
   color: green;
 }
@@ -112,13 +112,13 @@ ion-slides {
 }
 
 @media (max-width: 480px) {
-  .usd {
+  .eth {
     display: none;
   }
 }
 
-@media (max-width: 413px) {
-  .sek {
+@media (max-width: 412px) {
+  .usd {
     display: none;
   }
 }

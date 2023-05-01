@@ -1,5 +1,5 @@
-import { Univ3LpPositionProvider } from './univ3-lp-position.provider';
 /* eslint-disable @typescript-eslint/naming-convention */
+import { Univ3LpPositionProvider } from './univ3-lp-position.provider';
 import { ExchangeRateProvider } from './exchange-rate.provider';
 import { Portfolio } from './../model/portfolio';
 import { Injectable } from '@angular/core';
@@ -27,7 +27,6 @@ export class PortfolioProvider extends FirestoreProvider<Portfolio> {
   }
 
   public async update(portfolio: Portfolio) {
-    console.log('PortfolioProvider.update()');
     const usdsek = await this.exchangeRateProvider.get('USDSEK');
     const ethusd = await this.exchangeRateProvider.get('ETHUSD');
     const positions = await this.positionProvider.query({conditions: [{ field: 'portfolioId', op: '==', value: portfolio.id}]});

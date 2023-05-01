@@ -37,23 +37,30 @@ export class PortfolioPage implements OnInit {
     private route: ActivatedRoute,
     private auth: AuthProvider
     ) {
-      console.log('PortfolioPage.constructor');
   }
 
-  ngOnInit() {
-    console.log('PortfolioPage.ngOnInit');
+  async ngOnInit() {
     this.index = 0;
-      this.portfolioProvider.obseveCollection({
-          conditions: [{ field: 'uid', op: '==', value: this.auth.uid()}], orderBy: 'index'
-          }).subscribe({
-          next: portfolios => {
-            this.portfolios = portfolios;
-            this.title = this.portfolios[this.index].name;
-            this.getLpPositions(this.portfolios[this.index].id);
-            console.log('this.portfolioProvider.obseveCollection');
-          },
-          error: error => { console.error(error); }
-        });
+
+    //Update all portfolios
+    const temp = await this.portfolioProvider.query({
+      conditions: [{ field: 'uid', op: '==', value: this.auth.uid()}], orderBy: 'index'
+      });
+
+    for(const p of temp) {
+      await this.update(p);
+    }
+
+    this.portfolioProvider.obseveCollection({
+      conditions: [{ field: 'uid', op: '==', value: this.auth.uid()}], orderBy: 'index'
+      }).subscribe({
+      next: portfolios => {
+        this.portfolios = portfolios;
+        this.title = this.portfolios[this.index].name;
+        this.getLpPositions(this.portfolios[this.index].id);
+      },
+      error: error => { console.error(error); }
+    });
   }
 
   async slideChanged(event) {
